@@ -24,4 +24,4 @@ class Operation:
         return self.money
 
     def to_string(self):
-        self.date.strftime('%d %b %Y: ') + "\t" + self.description + "\t" + str(self.money)
+        return self.date.strftime('%d %b %Y: ') + "\t" + self.description + "\t" + str(self.money)
