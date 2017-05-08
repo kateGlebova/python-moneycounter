@@ -5,9 +5,6 @@ class Operation:
         self.description = description
         self.money = money
 
-    def print_operation(self):
-        print(self.date.strftime('%d %b %Y: ') + "\t" + self.description + "\t" + str(self.money))
-
     def set_date(self, date):
         self.date = date
 
@@ -25,3 +22,6 @@ class Operation:
 
     def get_money(self):
         return self.money
+
+    def to_string(self):
+        self.date.strftime('%d %b %Y: ') + "\t" + self.description + "\t" + str(self.money)
