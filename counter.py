@@ -16,6 +16,7 @@ class Counter:
         f.close()
 
     def add_operation(self, operation):
+        """This function add operation"""
         self.operations_list.append(operation)
 
     def get_operations_by_date(self, date):
@@ -60,3 +61,6 @@ class Counter:
         else:
             s += "No matches \n"
         return s
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
