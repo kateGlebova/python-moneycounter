@@ -1,6 +1,7 @@
 #### logic: boss - done
 #### test-logic: tozhe boss
-#### doc: kost
+#### docum: kost
 #### pep8: kost
 #### pyflakes: kost
 #### coverage: kost
+lolkek
