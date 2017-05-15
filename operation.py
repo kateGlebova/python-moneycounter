@@ -72,7 +72,7 @@ class Operation(object):
         :rtype: String
         
         :Example
-        >>> operation.Operation("07 May 2017", "donate", 150).get_description()
+        >>> operation.Operation(datetime.datetime.today(), "donate", 150).get_description()
         'donate'
         """
         return self.description
@@ -85,7 +85,7 @@ class Operation(object):
         :rtype: float
         
         :Example
-        >>> operation.Operation("07 May 2017", "donate", 150).get_money()
+        >>> operation.Operation(datetime.datetime.today(), "donate", 150).get_money()
         150
         """
         return self.money
@@ -96,6 +96,9 @@ class Operation(object):
         
         :return: String of date, money and description
         :rtype: String
+
+        :Example
+        >>>
         """
         return self.date.strftime('%d %b %Y: ') + "\t" + self.description + "\t" + str(self.money)
 
