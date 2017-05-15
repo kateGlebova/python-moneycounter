@@ -98,7 +98,7 @@ class Operation(object):
         :rtype: String
 
         :Example
-        >>> operation.Operation(datetime.datetime.today(), "donate", 190.5).to_string()
+        >>> operation.Operation(), "donate", 190.5).to_string()
         '15 May 2017: \\tdonate\\t190.5'
         """
         return self.date.strftime('%d %b %Y: ') + "\t" + self.description + "\t" + str(self.money)

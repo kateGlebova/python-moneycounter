@@ -1,3 +1,6 @@
+import counter
+import datetime
+
 class Counter:
     """This class implements simple money accounter.
            You can use it for storing notes about your income and
@@ -5,7 +8,6 @@ class Counter:
     def __init__(self):
         """
         Create new Counter object from existing DataFrame.
-        >>> print(Counter())
         List of notes is empty
 
         """
@@ -17,7 +19,6 @@ class Counter:
         :param path: path of the file
         :type path: string
         :return: nothing
-
         """
         import pickle
         f = open(path, 'rb')
@@ -50,6 +51,12 @@ class Counter:
         :type date: date
         :return: list of operations by date
         :rtype: string
+        
+        :Example
+        >>> account = counter.Counter()
+        >>> account.load_from_file("database.txt")
+        >>> account.get_operations_by_date(datetime.datetime.today())
+        'No matches \\n'
         """
         res = list()
         for k in self.operations_list:
@@ -64,6 +71,12 @@ class Counter:
         :type description: string
         :return: list of operations by description
         :rtype: string
+        
+        :Example
+        >>> account = counter.Counter()
+        >>> account.load_from_file("database.txt")
+        >>> account.get_operations_by_description("donate")
+        '07 May 2017: \\tdonate\\t100\\n07 May 2017: \\tdonate\\t100\\n07 May 2017: \\tdonate\\t100\\n'
         """
         res = list()
         for k in self.operations_list:
@@ -78,6 +91,14 @@ class Counter:
         :type money: float
         :return: list of operations by money
         :rtype: string
+        
+        :Example
+        >>> account = counter.Counter()
+        >>> account.load_from_file("database.txt")
+        >>> account.get_operations_by_money(150)
+        'No matches \\n'
+        >>> account.get_operations_by_money(500.2)
+        '07 May 2017: \\tplus\\t500.2\\n'
         """
         res = list()
         for k in self.operations_list:
@@ -106,6 +127,12 @@ class Counter:
         This function get balance of operation
         :return: balance
         :rtype: float
+        
+        :Example
+        >>> account = counter.Counter()
+        >>> account.load_from_file("database.txt")
+        >>> account.get_balance()
+        572.2
         """
         balance = 0
         for k in self.operations_list:
