@@ -61,6 +61,7 @@ class Counter:
         else:
             s += "No matches \n"
         return s
+
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
