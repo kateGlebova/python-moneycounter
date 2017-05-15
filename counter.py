@@ -1,9 +1,22 @@
 class Counter:
-
+    """This class implements simple money accounter.
+           You can use it for storing notes about your income and
+           outcome, search notes and group them by their attributes."""
     def __init__(self):
+        """
+        Create new Counter object from existing DataFrame.
+        >>> print(Counter())
+        List of notes is empty
+
+        """
         self.operations_list = []
 
     def load_from_file(self, path):
+        '''
+
+        :param path:
+        :return:
+        '''
         import pickle
         f = open(path, 'rb')
         self.operations_list = pickle.load(f)
@@ -16,10 +29,22 @@ class Counter:
         f.close()
 
     def add_operation(self, operation):
-        """This function add operation"""
+        """This function add operation
+        :param operation:
+        :type operation:
+        :return: nothing
+        """
         self.operations_list.append(operation)
 
+
     def get_operations_by_date(self, date):
+        """
+        This function allow get operations by date
+        :param date: the date of operation
+        :type date: date
+        :return: list of operations by date
+        :rtype: string
+        """
         res = list()
         for k in self.operations_list:
             if k.date.date() == date.date():
@@ -27,6 +52,13 @@ class Counter:
         return self.list_to_string(res)
 
     def get_operations_by_description(self, description):
+        """
+        This function allow get operations by description
+        :param description: the description of operation
+        :type description: string
+        :return: list of operations by description
+        :rtype: string
+        """
         res = list()
         for k in self.operations_list:
             if k.description == description:
@@ -34,6 +66,13 @@ class Counter:
         return self.list_to_string(res)
 
     def get_operations_by_money(self, money):
+        """
+        This function allow get operations by money
+        :param money: amount money of operation
+        :type money: float
+        :return: list of operations by money
+        :rtype: string
+        """
         res = list()
         for k in self.operations_list:
             if k.money == money:
