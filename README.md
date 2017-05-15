@@ -1,6 +1,5 @@
 #### logic: boss - done
-#### test: tozhe boss
-#### ui: karp
+#### test-logic: tozhe boss
 #### doc: kost
 #### pep8: kost
 #### pyflakes: kost

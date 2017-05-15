@@ -1,4 +1,4 @@
-class Operation:
+class Operation(object):
 
     def __init__(self, date, description, money):
         self.date = date
