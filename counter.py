@@ -36,7 +36,6 @@ class Counter:
         """
         self.operations_list.append(operation)
 
-
     def get_operations_by_date(self, date):
         """
         This function allow get operations by date

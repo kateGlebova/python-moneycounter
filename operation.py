@@ -5,11 +5,12 @@ class Operation(object):
 
     def __init__(self, date, description, money):
         """
-        Constuct a new 'Operation' object
+        Constructor a new 'Operation' object
 
         :param date: The date of Operation
         :param description: The description of Operation
         :param money: The money of Operation
+
         """
         self.date = date
         self.description = description
