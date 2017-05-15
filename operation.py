@@ -51,6 +51,10 @@ class Operation(object):
         
         :return: The date of Operation
         :rtype: date
+        
+        :Example
+        >>> operation.Operation("07 May 2017", "donate", 150).get_date()
+        '07 May 2017'        
         """
         return self.date
 
@@ -60,6 +64,10 @@ class Operation(object):
         
         :return: The description of Operation
         :rtype: String
+        
+        :Example
+        >>> operation.Operation("07 May 2017", "donate", 150).get_description()
+        'donate'
         """
         return self.description
 
@@ -69,6 +77,10 @@ class Operation(object):
         
         :return: The money of Operation
         :rtype: float
+        
+        :Example
+        >>> operation.Operation("07 May 2017", "donate", 150).get_money()
+        150
         """
         return self.money
 
