@@ -12,17 +12,24 @@ class Counter:
         self.operations_list = []
 
     def load_from_file(self, path):
-        '''
+        """
+        This function load list of operations from file
+        :param path: path of the file
+        :type path: string
+        :return: nothing
 
-        :param path:
-        :return:
-        '''
+        """
         import pickle
         f = open(path, 'rb')
         self.operations_list = pickle.load(f)
         f.close()
 
     def save_into_file(self, path):
+        """This function save operations into file
+        :param path: path of the file
+        :type path: string
+        :return: nothing
+        """
         import pickle
         f = open(path, 'wb')
         pickle.dump(self.get_operations(), f)
@@ -30,8 +37,8 @@ class Counter:
 
     def add_operation(self, operation):
         """This function add operation
-        :param operation:
-        :type operation:
+        :param operation: operation
+        :type operation: Operation
         :return: nothing
         """
         self.operations_list.append(operation)
@@ -79,12 +86,27 @@ class Counter:
         return self.list_to_string(res)
 
     def set_operations(self, operations_list):
+        """
+        This function set operations
+        :param operations_list: operations list
+        :type operations_list:
+        """
         self.operations_list = operations_list
 
     def get_operations(self):
+        """
+        This function get operations
+        :return: list of operations
+        :rtype: operations list
+        """
         return self.operations_list
 
     def get_balance(self):
+        """
+        This function get balance of operation
+        :return: balance
+        :rtype: float
+        """
         balance = 0
         for k in self.operations_list:
             balance += k.get_money()
@@ -92,6 +114,11 @@ class Counter:
 
     @staticmethod
     def list_to_string(res):
+        """
+        This function convert list to string
+        :return: string of result
+        :rtype: string
+        """
         s = ""
         if len(res) != 0:
             for k in res:
