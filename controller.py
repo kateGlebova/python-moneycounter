@@ -20,6 +20,7 @@ def run():
             desc = input("Enter operation description: ")
             money = int(input("Enter money =  "))
             account.add_operation(operation.Operation(datetime.datetime.today(), desc, money))
+            account.save_into_file("database.txt")
         elif i == 3:
             i = int(input("Enter money value = "))
             print(account.get_operations_by_money(i))

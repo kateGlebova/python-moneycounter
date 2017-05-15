@@ -9,6 +9,12 @@ class Counter:
         self.operations_list = pickle.load(f)
         f.close()
 
+    def save_into_file(self, path):
+        import pickle
+        f = open(path, 'wb')
+        pickle.dump(self.get_operations(), f)
+        f.close()
+
     def add_operation(self, operation):
         self.operations_list.append(operation)
 
