@@ -46,13 +46,38 @@ class Operation(object):
         self.money = money
 
     def get_date(self):
+        """
+        This function get the date of Operation
+        
+        :return: The date of Operation
+        :rtype: date
+        """
         return self.date
 
     def get_description(self):
+        """
+        This function  get description of Operation
+        
+        :return: The description of Operation
+        :rtype: String
+        """
         return self.description
 
     def get_money(self):
+        """
+        This function get money of Operation
+        
+        :return: The money of Operation
+        :rtype: float
+        """
         return self.money
 
     def to_string(self):
+        """
+        This function convert the date, description and money to String
+        
+        :return: String of date, money and description
+        :rtype: String
+        """
         return self.date.strftime('%d %b %Y: ') + "\t" + self.description + "\t" + str(self.money)
+
