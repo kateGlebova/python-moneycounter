@@ -21,9 +21,9 @@ class Counter:
     def get_operations_by_date(self, date):
         res = list()
         for k in self.operations_list:
-            if k.date == date:
+            if k.date.date() == date.date():
                 res.append(k)
-        return res
+        return self.list_to_string(res)
 
     def get_operations_by_description(self, description):
         res = list()
