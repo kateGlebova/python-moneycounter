@@ -1,3 +1,8 @@
+import datetime
+
+import operation
+
+
 class Operation(object):
     """
     Operation encapsulates a date, description and money
@@ -53,9 +58,9 @@ class Operation(object):
         :return: The date of Operation
         :rtype: date
         
-        :Example
-        >>> operation.Operation("07 May 2017", "donate", 150).get_date()
-        '07 May 2017'        
+        :Example.
+        >>> operation.Operation(datetime.datetime(2000, 2, 2), "donate", 150).get_date()
+        datetime.datetime(2000, 2, 2, 0, 0)
         """
         return self.date
 
