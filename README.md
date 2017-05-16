@@ -4,3 +4,5 @@
 #### docum: kost
 #### pep8: kost
 #### pyflakes: kost
+#### coverage: kost
+keklol уа
