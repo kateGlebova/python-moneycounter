@@ -1,8 +1,3 @@
-import datetime
-
-import operation
-
-
 class Operation(object):
     """
     Operation encapsulates a date, description and money
@@ -21,36 +16,6 @@ class Operation(object):
         self.description = description
         self.money = money
 
-    def set_date(self, date):
-        """
-        This function set the date
-
-        :param date: The date of Operation
-        :type date: date
-        :return: Nothing
-        """
-        self.date = date
-
-    def set_description(self, description):
-        """
-        This function set the description
-
-        :param description: The description of Operation
-        :type description: String
-        :return: Nothing
-        """
-        self.description = description
-
-    def set_money(self, money):
-        """
-        This function set the money of Operation
-
-        :param money: The money of Operation
-        :type money: float
-        :return: Nothing
-        """
-        self.money = money
-
     def get_date(self):
         """
         This function get the date of Operation
@@ -59,6 +24,8 @@ class Operation(object):
         :rtype: date
         
         :Example.
+        >>> import operation
+        >>> import datetime
         >>> operation.Operation(datetime.datetime(2000, 2, 2), "donate", 150).get_date()
         datetime.datetime(2000, 2, 2, 0, 0)
         """
@@ -72,6 +39,8 @@ class Operation(object):
         :rtype: String
         
         :Example
+        >>> import operation
+        >>> import datetime
         >>> operation.Operation(datetime.datetime.today(), "donate", 150).get_description()
         'donate'
         """
@@ -85,6 +54,8 @@ class Operation(object):
         :rtype: float
         
         :Example
+        >>> import operation
+        >>> import datetime
         >>> operation.Operation(datetime.datetime.today(), "donate", 150).get_money()
         150
         """
@@ -98,8 +69,9 @@ class Operation(object):
         :rtype: String
 
         :Example
+        >>> import operation
+        >>> import datetime
         >>> operation.Operation(datetime.datetime.today(), "donate", 190.5).to_string()
         '16 May 2017: \\tdonate\\t190.5'
         """
         return self.date.strftime('%d %b %Y: ') + "\t" + self.description + "\t" + str(self.money)
-
