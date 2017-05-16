@@ -1,6 +1,7 @@
 import counter
 import operation
 import datetime
+import view
 
 
 class View:
@@ -12,15 +13,9 @@ class View:
     def get_datetime():
         """
         user input year, month, day to get operations by date
+        
         :return: datetime - year, month, day
         :rtype: date
-        :Example
-        >>> import view
-        >>> view.View().get_datetime()
-        Year = >? 2017
-        Month = >? 05
-        Day = >? 12
-        datetime.datetime(2017, 5, 12, 0, 0)
         """
         year = int(input("Year = "))
         month = int(input("Month = "))
@@ -30,25 +25,7 @@ class View:
     def run(self):
         """
         this function return result depending on users' choice
-        >>> import view
-        >>> view.View().run()
-        1 - Show operations history
-        2 - Add new operation
-        3 - Get operations by money
-        4 - Get operation by description
-        5 - Get operation by date
-        6 - Get balance
-        7 - Exit
-        >? 6
-        balance = 572.2
-        1 - Show operations history
-        2 - Add new operation
-        3 - Get operations by money
-        4 - Get operation by description
-        5 - Get operation by date
-        6 - Get balance
-        7 - Exit
-        >? 7
+        
         """
         account = counter.Counter()
         account.load_from_file("database.txt")
@@ -73,22 +50,19 @@ class View:
                 print(account.get_operations_by_date(self.get_datetime()))
             elif i == 6:
                 print("balance = " + str(account.get_balance()))
-            elif i != 7:
-                print("Wrong choice, ty again")
 
     @staticmethod
     def user_input():
         """
+        
         this function return numbers of operations available for user
         :return: digit of operation for user
+        
         """
-        try:
-            return int(input("1 - Show operations history \n"
-                             "2 - Add new operation \n"
-                             "3 - Get operations by money \n"
-                             "4 - Get operation by description \n"
-                             "5 - Get operation by date \n"
-                             "6 - Get balance \n"
-                             "7 - Exit \n"))
-        except ValueError:
-            return -1
+        return int(input("1 - Show operations history \n"
+                         "2 - Add new operation \n"
+                         "3 - Get operations by money \n"
+                         "4 - Get operation by description \n"
+                         "5 - Get operation by date \n"
+                         "6 - Get balance \n"
+                         "7 - Exit \n"))
