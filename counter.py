@@ -1,10 +1,7 @@
-import counter
-import datetime
-
 class Counter:
-    """This class implements simple money accounter.
-           You can use it for storing notes about your income and
-           outcome, search notes and group them by their attributes."""
+    """This class implements simple money counter.
+        You can use it for storing notes about your income and
+        outcome, search notes and group them by their attributes."""
     def __init__(self):
         """
         Create new Counter object from existing DataFrame.
@@ -53,6 +50,8 @@ class Counter:
         :rtype: string
         
         :Example
+        >>> import counter
+        >>> import datetime
         >>> account = counter.Counter()
         >>> account.load_from_file("database.txt")
         >>> account.get_operations_by_date(datetime.datetime.today())
@@ -73,6 +72,7 @@ class Counter:
         :rtype: string
         
         :Example
+        >>> import counter
         >>> account = counter.Counter()
         >>> account.load_from_file("database.txt")
         >>> account.get_operations_by_description("donate")
@@ -93,6 +93,7 @@ class Counter:
         :rtype: string
         
         :Example
+        >>> import counter
         >>> account = counter.Counter()
         >>> account.load_from_file("database.txt")
         >>> account.get_operations_by_money(150)
@@ -105,14 +106,6 @@ class Counter:
             if k.money == money:
                 res.append(k)
         return self.list_to_string(res)
-
-    def set_operations(self, operations_list):
-        """
-        This function set operations
-        :param operations_list: operations list
-        :type operations_list: list
-        """
-        self.operations_list = operations_list
 
     def get_operations(self):
         """
@@ -129,10 +122,15 @@ class Counter:
         :rtype: float
         
         :Example
+        >>> import counter
+        >>> import operation
+        >>> import datetime
         >>> account = counter.Counter()
-        >>> account.load_from_file("database.txt")
+        >>> account.add_operation(operation.Operation(datetime.datetime.today(), "donate", 100))
+        >>> account.add_operation(operation.Operation(datetime.datetime.today(), "donate", -100))
+        >>> account.add_operation(operation.Operation(datetime.datetime.today(), "donate", 100))
         >>> account.get_balance()
-        572.2
+        100
         """
         balance = 0
         for k in self.operations_list:
@@ -145,6 +143,12 @@ class Counter:
         This function convert list to string
         :return: string of result
         :rtype: string
+
+        :Example
+        >>> import counter
+        >>> account = counter.Counter()
+        >>> counter.Counter().list_to_string(account.get_operations())
+        'No matches \\n'
         """
         s = ""
         if len(res) != 0:
