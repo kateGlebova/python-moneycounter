@@ -30,25 +30,6 @@ class View:
     def run(self):
         """
         this function return result depending on users' choice
-        >>> import view
-        >>> view.View().run()
-        1 - Show operations history
-        2 - Add new operation
-        3 - Get operations by money
-        4 - Get operation by description
-        5 - Get operation by date
-        6 - Get balance
-        7 - Exit
-        >? 6
-        balance = 572.2
-        1 - Show operations history
-        2 - Add new operation
-        3 - Get operations by money
-        4 - Get operation by description
-        5 - Get operation by date
-        6 - Get balance
-        7 - Exit
-        >? 7
         """
         account = counter.Counter()
         account.load_from_file("database.txt")
