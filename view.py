@@ -27,17 +27,17 @@ class View:
         account = counter.Counter()
         account.load_from_file("database.txt")
         i = 0
-        while i != 7:
+        while i != 8:
             i = self.user_input(lambda: input("1 - Show operations history \n"
                                               "2 - Add new operation \n"
                                               "3 - Get operations by money \n"
                                               "4 - Get operation by description \n"
                                               "5 - Get operation by date \n"
                                               "6 - Get balance \n"
-                                              "7 - Exit \n"))
+                                              "7 - Clear operations history \n"
+                                              "8 - Exit \n"))
             if i == 1:
-                for k in account.get_operations():
-                    print(k.to_string())
+                print(counter.Counter().list_to_string(account.get_operations(), "Empty operations history"))
             elif i == 2:
                 desc = input("Enter operation description: ")
                 money = int(input("Enter money =  "))
@@ -53,7 +53,9 @@ class View:
                 print(account.get_operations_by_date(self.get_datetime()))
             elif i == 6:
                 print("balance = " + str(account.get_balance()))
-            elif i != 7:
+            elif i == 7:
+                account.delete_operations()
+            elif i != 8:
                 print("Wrong choice, ty again")
 
     @staticmethod
