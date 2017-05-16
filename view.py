@@ -8,23 +8,16 @@ class View:
     def __init__(self):
         pass
 
-    @staticmethod
-    def get_datetime():
+    def get_datetime(self):
         """
         user input year, month, day to get operations by date
         :return: datetime - year, month, day
         :rtype: date
-        :Example
-        >>> import view
-        >>> view.View().get_datetime()
-        Year = >? 2017
-        Month = >? 05
-        Day = >? 12
-        datetime.datetime(2017, 5, 12, 0, 0)
+
         """
-        year = int(input("Year = "))
-        month = int(input("Month = "))
-        day = int(input("Day = "))
+        year = int(self.user_input(lambda: input("Year = ")))
+        month = int(self.user_input(lambda: input("Month = ")))
+        day = int(self.user_input(lambda: input("Day = ")))
         return datetime.datetime(year, month, day)
 
     def run(self):
@@ -35,7 +28,13 @@ class View:
         account.load_from_file("database.txt")
         i = 0
         while i != 7:
-            i = self.user_input()
+            i = self.user_input(lambda: input("1 - Show operations history \n"
+                                              "2 - Add new operation \n"
+                                              "3 - Get operations by money \n"
+                                              "4 - Get operation by description \n"
+                                              "5 - Get operation by date \n"
+                                              "6 - Get balance \n"
+                                              "7 - Exit \n"))
             if i == 1:
                 for k in account.get_operations():
                     print(k.to_string())
@@ -58,18 +57,17 @@ class View:
                 print("Wrong choice, ty again")
 
     @staticmethod
-    def user_input():
+    def user_input(input_func=input):
         """
-        this function return numbers of operations available for user
+        This function return numbers of operations available for user.
         :return: digit of operation for user
+
+        :Example
+        >>> import view
+        >>> view.View().user_input(lambda: 'k')
+        -1
         """
         try:
-            return int(input("1 - Show operations history \n"
-                             "2 - Add new operation \n"
-                             "3 - Get operations by money \n"
-                             "4 - Get operation by description \n"
-                             "5 - Get operation by date \n"
-                             "6 - Get balance \n"
-                             "7 - Exit \n"))
+            return int(input_func())
         except ValueError:
             return -1
