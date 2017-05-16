@@ -110,7 +110,7 @@ class Counter:
         """
         This function set operations
         :param operations_list: operations list
-        :type operations_list:
+        :type operations_list: list
         """
         self.operations_list = operations_list
 
