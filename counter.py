@@ -61,7 +61,7 @@ class Counter:
         for k in self.operations_list:
             if k.date.date() == date.date():
                 res.append(k)
-        return self.list_to_string(res)
+        return self.list_to_string(res, "No matches")
 
     def get_operations_by_description(self, description):
         """
@@ -82,7 +82,7 @@ class Counter:
         for k in self.operations_list:
             if k.description == description:
                 res.append(k)
-        return self.list_to_string(res)
+        return self.list_to_string(res, "No matches")
 
     def get_operations_by_money(self, money):
         """
@@ -105,7 +105,7 @@ class Counter:
         for k in self.operations_list:
             if k.money == money:
                 res.append(k)
-        return self.list_to_string(res)
+        return self.list_to_string(res, "No matches")
 
     def get_operations(self):
         """
@@ -114,6 +114,22 @@ class Counter:
         :rtype: operations list
         """
         return self.operations_list
+
+    def delete_operations(self):
+        """
+        This function delete all operations from list.
+
+        :Example
+        >>> import counter
+        >>> import operation
+        >>> import datetime
+        >>> account = counter.Counter()
+        >>> account.add_operation(operation.Operation(datetime.datetime.today(), "donate", 100))
+        >>> account.delete_operations()
+        >>> counter.Counter().list_to_string(account.get_operations(), "Empty list")
+        'Empty list \\n'
+        """
+        self.operations_list.clear()
 
     def get_balance(self):
         """
@@ -138,7 +154,7 @@ class Counter:
         return balance
 
     @staticmethod
-    def list_to_string(res):
+    def list_to_string(res, mes):
         """
         This function convert list to string
         :return: string of result
@@ -147,7 +163,7 @@ class Counter:
         :Example
         >>> import counter
         >>> account = counter.Counter()
-        >>> counter.Counter().list_to_string(account.get_operations())
+        >>> counter.Counter().list_to_string(account.get_operations(), "No matches")
         'No matches \\n'
         """
         s = ""
@@ -155,7 +171,7 @@ class Counter:
             for k in res:
                 s += k.to_string() + "\n"
         else:
-            s += "No matches \n"
+            s += mes + " \n"
         return s
 
 if __name__ == "__main__":
