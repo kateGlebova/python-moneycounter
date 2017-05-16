@@ -133,7 +133,7 @@ class Counter:
 
     def get_balance(self):
         """
-        This function get balance of operation
+        This function get balance of operation.
         :return: balance
         :rtype: float
         
