@@ -48,7 +48,6 @@ class Counter:
         :type date: date
         :return: list of operations by date
         :rtype: string
-        
         :Example
         >>> import counter
         >>> import datetime
@@ -59,7 +58,7 @@ class Counter:
         """
         res = list()
         for k in self.operations_list:
-            if k.date.date() == date.date():
+            if k.get_date().date() == date.date():
                 res.append(k)
         return self.list_to_string(res, "No matches")
 
@@ -70,7 +69,6 @@ class Counter:
         :type description: string
         :return: list of operations by description
         :rtype: string
-        
         :Example
         >>> import counter
         >>> account = counter.Counter()
@@ -80,7 +78,7 @@ class Counter:
         """
         res = list()
         for k in self.operations_list:
-            if k.description == description:
+            if k.get_description() == description:
                 res.append(k)
         return self.list_to_string(res, "No matches")
 
@@ -91,7 +89,6 @@ class Counter:
         :type money: float
         :return: list of operations by money
         :rtype: string
-        
         :Example
         >>> import counter
         >>> account = counter.Counter()
@@ -118,7 +115,6 @@ class Counter:
     def delete_operations(self):
         """
         This function delete all operations from list.
-
         :Example
         >>> import counter
         >>> import operation
@@ -136,7 +132,6 @@ class Counter:
         This function get balance of operation.
         :return: balance
         :rtype: float
-        
         :Example
         >>> import counter
         >>> import operation
@@ -159,7 +154,6 @@ class Counter:
         This function convert list to string
         :return: string of result
         :rtype: string
-
         :Example
         >>> import counter
         >>> account = counter.Counter()
@@ -173,7 +167,3 @@ class Counter:
         else:
             s += mes + " \n"
         return s
-
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod()

@@ -6,11 +6,9 @@ class Operation(object):
     def __init__(self, date, description, money):
         """
         Constructor a new 'Operation' object
-
         :param date: The date of Operation
         :param description: The description of Operation
         :param money: The money of Operation
-
         """
         self.date = date
         self.description = description
@@ -19,10 +17,8 @@ class Operation(object):
     def get_date(self):
         """
         This function get the date of Operation
-        
         :return: The date of Operation
         :rtype: date
-        
         :Example.
         >>> import operation
         >>> import datetime
@@ -34,10 +30,8 @@ class Operation(object):
     def get_description(self):
         """
         This function  get description of Operation
-        
         :return: The description of Operation
         :rtype: String
-        
         :Example
         >>> import operation
         >>> import datetime
@@ -49,10 +43,8 @@ class Operation(object):
     def get_money(self):
         """
         This function get money of Operation
-        
         :return: The money of Operation
         :rtype: float
-        
         :Example
         >>> import operation
         >>> import datetime
@@ -64,10 +56,8 @@ class Operation(object):
     def to_string(self):
         """
         This function convert the date, description and money to String
-        
         :return: String of date, money and description
         :rtype: String
-
         :Example
         >>> import operation
         >>> import datetime

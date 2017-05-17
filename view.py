@@ -33,7 +33,6 @@ class View:
     def run(self):
         """
         This function doing something depending on users' choice.
-
         """
         account = counter.Counter()
         account.load_from_file("database.txt")
@@ -70,7 +69,6 @@ class View:
         """
         This function return numbers of operations available for user.
         :return: digit of operation for user
-
         :Example
         >>> import view
         >>> view.View().user_input(lambda: 'k')
@@ -80,4 +78,3 @@ class View:
             return int(input_func())
         except ValueError:
             return -1
-
