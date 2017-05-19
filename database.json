@@ -1,1 +1,2 @@
-[{"data": "16 May 2017", "description": "donate1", "money": 100}, {"data": "16 May 2017", "description": "donate2", "money": 100}, {"data": "16 May 2017", "description": "donate3", "money": 100}, {"data": "16 May 2017", "description": "donate4", "money": 100}, {"data": "16 May 2017", "description": "donate5", "money": 100}]
+- !!python/object:operation.Operation {date: !!timestamp '2017-05-17 00:00:00', description: donate,
+  money: 100}
