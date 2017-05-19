@@ -1,0 +1,2 @@
+- !!python/object:operation.Operation {date: !!timestamp '2017-05-18 00:00:00', description: donate_with_yaml,
+  money: 123}
