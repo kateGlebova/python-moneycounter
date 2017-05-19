@@ -1,0 +1,4 @@
+- !!python/object:operation.Operation {date: !!timestamp '2017-05-17 00:00:00', description: donate,
+  money: 100}
+- !!python/object:operation.Operation {date: !!timestamp '2017-05-18 00:00:00', description: another_donate,
+  money: -111}
