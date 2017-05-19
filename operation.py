@@ -53,7 +53,7 @@ class Operation(object):
         """
         return self.money
 
-    def to_string(self):
+    def __str__(self):
         """
         This function convert the date, description and money to String
         :return: String of date, money and description
@@ -61,7 +61,7 @@ class Operation(object):
         :Example
         >>> import operation
         >>> import datetime
-        >>> operation.Operation(datetime.datetime.today(), "donate", 190.5).to_string()
-        '16 May 2017: \\tdonate\\t190.5'
+        >>> str(operation.Operation(datetime.datetime(2017, 5, 16), "donate", 190.5))
+        '16 May 2017:\\tdonate\\t190.5'
         """
-        return self.date.strftime('%d %b %Y: ') + "\t" + self.description + "\t" + str(self.money)
+        return str(self.date.strftime('%d %b %Y:') + "\t" + self.description + "\t" + str(self.money))
