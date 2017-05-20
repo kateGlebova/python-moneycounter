@@ -2,6 +2,7 @@ import io
 import unittest
 import counter
 import config
+import storage
 
 
 class StringTest(unittest.TestCase):
@@ -16,33 +17,33 @@ class StringTest(unittest.TestCase):
         import pickle
 
         # test load
-        config.AppConfiguration().set_configuration("configuration.cfg", "serialization", "type", "pickle")
-        self.assertEqual(self.test_data, counter.Counter().load_data(io.BytesIO(pickle.dumps(self.test_data))))
+        config.AppConfiguration().set_file_type("pickle")
+        self.assertEqual(self.test_data, storage.Storage().load_data(io.BytesIO(pickle.dumps(self.test_data))))
 
         # test save
-        config.AppConfiguration().set_configuration("configuration.cfg", "serialization", "type", "pickle")
-        self.assertEqual(self.test_data, counter.Counter().save_data(io.BytesIO(), self.test_data))
+        config.AppConfiguration().set_file_type("pickle")
+        self.assertEqual(self.test_data, storage.Storage().save_data(io.BytesIO(), self.test_data))
 
     def test_json_format(self):
         import json
 
         # test load
         file = io.StringIO(json.dumps(self.test_data))
-        config.AppConfiguration().set_configuration("configuration.cfg", "serialization", "type", "json")
-        self.assertEqual(self.test_data, counter.Counter().load_data(file))
+        config.AppConfiguration().set_file_type("json")
+        self.assertEqual(self.test_data, storage.Storage().load_data(file))
 
         # test save
-        config.AppConfiguration().set_configuration("configuration.cfg", "serialization", "type", "json")
-        self.assertEqual(self.test_data, counter.Counter().save_data(io.StringIO(), self.test_data))
+        config.AppConfiguration().set_file_type("json")
+        self.assertEqual(self.test_data, storage.Storage().save_data(io.StringIO(), self.test_data))
 
     def test_yaml_format(self):
         import yaml
 
         # test load
         file = io.StringIO(yaml.dump(self.test_data))
-        config.AppConfiguration().set_configuration("configuration.cfg", "serialization", "type", "yaml")
-        self.assertEqual(self.test_data, counter.Counter().load_data(file))
+        config.AppConfiguration().set_file_type("yaml")
+        self.assertEqual(self.test_data, storage.Storage().load_data(file))
 
         # test save
-        config.AppConfiguration().set_configuration("configuration.cfg", "serialization", "type", "yaml")
-        self.assertEqual(self.test_data, counter.Counter().save_data(io.StringIO(), self.test_data))
+        config.AppConfiguration().set_file_type("yaml")
+        self.assertEqual(self.test_data, storage.Storage().save_data(io.StringIO(), self.test_data))

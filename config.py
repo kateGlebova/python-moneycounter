@@ -1,20 +1,27 @@
 class AppConfiguration:
 
-    @staticmethod
-    def get_configuration(file_name, section, option):
-        import configparser
-        config = configparser.RawConfigParser()
-        config.read(file_name)
-        return config.get(section, option)
+    #
+    file_name = "configuration.cfg"
 
-    @staticmethod
-    def set_configuration(file_name, section, option, value):
+    #
+    serial_section = "serialization"
+
+    #
+    serial_type = "type"
+
+    def get_file_type(self):
         import configparser
         config = configparser.RawConfigParser()
-        config.read(file_name)
-        config.set(section, option, value)
+        config.read(self.file_name)
+        return config.get(self.serial_section, self.serial_type)
+
+    def set_file_type(self, value):
+        import configparser
+        config = configparser.RawConfigParser()
+        config.read(self.file_name)
+        config.set(self.serial_section, self.serial_type, value)
         try:
-            with open(file_name, 'w') as f:
+            with open(self.file_name, 'w') as f:
                 config.write(f)
         except FileNotFoundError:
             print("FileNotFound")
