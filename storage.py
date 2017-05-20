@@ -7,13 +7,11 @@ import config
 class Storage:
 
     def load_data(self, file):
-        data = self.get_file_module(config.AppConfiguration()
-                                    .get_configuration("configuration.cfg", "serialization", "type"))
+        data = self.get_file_module(config.AppConfiguration().get_file_type())
         return data.deserialization(file)
 
     def save_data(self, file, data):
-        f = self.get_file_module(config.AppConfiguration()
-                                 .get_configuration("configuration.cfg", "serialization", "type"))
+        f = self.get_file_module(config.AppConfiguration().get_file_type())
         return f.serialization(file, data)
 
     @staticmethod
