@@ -10,29 +10,6 @@ class Counter:
         """
         self.operations_list = []
 
-    def load_from_file(self, path):
-        """
-        This function load list of operations from file
-        :param path: path of the file
-        :type path: string
-        :return: nothing
-        """
-        import pickle
-        f = open(path, 'rb')
-        self.operations_list = pickle.load(f)
-        f.close()
-
-    def save_into_file(self, path):
-        """This function save operations into file
-        :param path: path of the file
-        :type path: string
-        :return: nothing
-        """
-        import pickle
-        f = open(path, 'wb')
-        pickle.dump(self.get_operations(), f)
-        f.close()
-
     def add_operation(self, operation):
         """This function add operation
         :param operation: operation
@@ -51,9 +28,12 @@ class Counter:
         :Example
         >>> import counter
         >>> import datetime
+        >>> import operation
         >>> account = counter.Counter()
-        >>> account.load_from_file("database.txt")
-        >>> account.get_operations_by_date(datetime.datetime.today())
+        >>> account.add_operation(operation.Operation(datetime.datetime.today(), "donate", 100))
+        >>> account.add_operation(operation.Operation(datetime.datetime.today(), "donate", -100))
+        >>> account.add_operation(operation.Operation(datetime.datetime.today(), "donate", 100))
+        >>> account.get_operations_by_date(datetime.datetime(2016, 12, 12))
         'No matches \\n'
         """
         return self.list_to_string([k for k in self.operations_list if k.get_date().date() == date.date()], "No matches")
@@ -67,10 +47,14 @@ class Counter:
         :rtype: string
         :Example
         >>> import counter
+        >>> import operation
+        >>> import datetime
         >>> account = counter.Counter()
-        >>> account.load_from_file("database.txt")
-        >>> account.get_operations_by_description("donate")
-        '07 May 2017: \\tdonate\\t100\\n07 May 2017: \\tdonate\\t100\\n07 May 2017: \\tdonate\\t100\\n'
+        >>> account.add_operation(operation.Operation(datetime.datetime(2017, 5, 20), "donate1", 100))
+        >>> account.add_operation(operation.Operation(datetime.datetime(2017, 5, 20), "donate2", -100))
+        >>> account.add_operation(operation.Operation(datetime.datetime(2017, 5, 20), "donate1", 100))
+        >>> account.get_operations_by_description("donate1")
+        '20 May 2017:\\tdonate1\\t100\\n20 May 2017:\\tdonate1\\t100\\n'
         """
         return self.list_to_string([k for k in self.operations_list if k.get_description() == description], "No matches")
 
@@ -83,12 +67,12 @@ class Counter:
         :rtype: string
         :Example
         >>> import counter
+        >>> import operation
+        >>> import datetime
         >>> account = counter.Counter()
-        >>> account.load_from_file("database.txt")
+        >>> account.add_operation(operation.Operation(datetime.datetime(2017, 5, 20), "donate1", 100))
         >>> account.get_operations_by_money(150)
         'No matches \\n'
-        >>> account.get_operations_by_money(500.2)
-        '07 May 2017: \\tplus\\t500.2\\n'
         """
         return self.list_to_string([k for k in self.operations_list if k.get_money() == money], "No matches")
 
@@ -99,6 +83,9 @@ class Counter:
         :rtype: operations list
         """
         return self.operations_list
+
+    def set_operations(self, data):
+        self.operations_list = data
 
     def delete_operations(self):
         """
