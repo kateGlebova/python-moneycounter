@@ -56,11 +56,7 @@ class Counter:
         >>> account.get_operations_by_date(datetime.datetime.today())
         'No matches \\n'
         """
-        res = list()
-        for k in self.operations_list:
-            if k.get_date().date() == date.date():
-                res.append(k)
-        return self.list_to_string(res, "No matches")
+        return self.list_to_string([k for k in self.operations_list if k.get_date().date() == date.date()], "No matches")
 
     def get_operations_by_description(self, description):
         """
@@ -76,11 +72,7 @@ class Counter:
         >>> account.get_operations_by_description("donate")
         '07 May 2017: \\tdonate\\t100\\n07 May 2017: \\tdonate\\t100\\n07 May 2017: \\tdonate\\t100\\n'
         """
-        res = list()
-        for k in self.operations_list:
-            if k.get_description() == description:
-                res.append(k)
-        return self.list_to_string(res, "No matches")
+        return self.list_to_string([k for k in self.operations_list if k.get_description() == description], "No matches")
 
     def get_operations_by_money(self, money):
         """
@@ -98,11 +90,7 @@ class Counter:
         >>> account.get_operations_by_money(500.2)
         '07 May 2017: \\tplus\\t500.2\\n'
         """
-        res = list()
-        for k in self.operations_list:
-            if k.money == money:
-                res.append(k)
-        return self.list_to_string(res, "No matches")
+        return self.list_to_string([k for k in self.operations_list if k.get_money() == money], "No matches")
 
     def get_operations(self):
         """
@@ -161,9 +149,9 @@ class Counter:
         'No matches \\n'
         """
         s = ""
-        if len(res) != 0:
+        if res is not None and len(res) != 0:
             for k in res:
-                s += k.to_string() + "\n"
+                s += str(k) + "\n"
         else:
             s += mes + " \n"
         return s
