@@ -10,6 +10,18 @@ class Counter:
         """
         self.operations_list = []
 
+    def __iter__(self):
+        self.iter = self.operations_list
+        return self
+
+    def __next__(self):
+        if self.iter:
+            head = self.iter[0]
+            self.iter = self.iter[1:]
+            return head
+        else:
+            raise StopIteration
+
     def add_operation(self, operation):
         """This function add operation
         :param operation: operation
@@ -36,7 +48,7 @@ class Counter:
         >>> account.get_operations_by_date(datetime.datetime(2016, 12, 12))
         'No matches \\n'
         """
-        return self.list_to_string([k for k in self.operations_list if k.get_date().date() == date.date()], "No matches")
+        return [k for k in self.operations_list if k.get_date().date() == date.date()]
 
     def get_operations_by_description(self, description):
         """
@@ -56,7 +68,7 @@ class Counter:
         >>> account.get_operations_by_description("donate1")
         '20 May 2017:\\tdonate1\\t100\\n20 May 2017:\\tdonate1\\t100\\n'
         """
-        return self.list_to_string([k for k in self.operations_list if k.get_description() == description], "No matches")
+        return [k for k in self.operations_list if k.get_description() == description]
 
     def get_operations_by_money(self, money):
         """
@@ -74,7 +86,7 @@ class Counter:
         >>> account.get_operations_by_money(150)
         'No matches \\n'
         """
-        return self.list_to_string([k for k in self.operations_list if k.get_money() == money], "No matches")
+        return [k for k in self.operations_list if k.get_money() == money]
 
     def get_operations(self):
         """
@@ -97,7 +109,6 @@ class Counter:
         >>> account = counter.Counter()
         >>> account.add_operation(operation.Operation(datetime.datetime.today(), "donate", 100))
         >>> account.delete_operations()
-        >>> counter.Counter().list_to_string(account.get_operations(), "Empty list")
         'Empty list \\n'
         """
         self.operations_list.clear()
@@ -122,23 +133,3 @@ class Counter:
         for k in self.operations_list:
             balance += k.get_money()
         return balance
-
-    @staticmethod
-    def list_to_string(res, mes):
-        """
-        This function convert list to string
-        :return: string of result
-        :rtype: string
-        :Example
-        >>> import counter
-        >>> account = counter.Counter()
-        >>> counter.Counter().list_to_string(account.get_operations(), "No matches")
-        'No matches \\n'
-        """
-        s = ""
-        if res is not None and len(res) != 0:
-            for k in res:
-                s += str(k) + "\n"
-        else:
-            s += mes + " \n"
-        return s

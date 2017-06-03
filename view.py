@@ -53,7 +53,6 @@ class View:
         elif config.AppConfiguration().get_file_type() == "yaml":
             storage.Storage().save_data(open("database." + config.AppConfiguration().get_file_type(), 'w'), data)
 
-
     def run(self):
         """
         This function doing something depending on users' choice.
@@ -71,17 +70,20 @@ class View:
                                               "7 - Clear operations history \n"
                                               "8 - Exit \n"))
             if i == 1:
-                print(counter.Counter().list_to_string(account.get_operations(), "Empty operations history"))
+                for i in account:
+                    print(i)
             elif i == 2:
                 account.add_operation(self.get_new_operation())
                 self.save_data_into_file(account.get_operations())
-                #storage.Storage().save_data(open("database.yaml", 'w'), account.get_operations())
             elif i == 3:
-                print(account.get_operations_by_money(int(self.user_input(lambda: input("Enter money value = ")))))
+                for k in account.get_operations_by_money(int(self.user_input(lambda: input("Enter money value = ")))):
+                    print(k)
             elif i == 4:
-                print(account.get_operations_by_description(input("Enter description value: ")))
+                for k in account.get_operations_by_description(input("Enter description value: ")):
+                    print(k)
             elif i == 5:
-                print(account.get_operations_by_date(self.get_datetime()))
+                for k in account.get_operations_by_date(self.get_datetime()):
+                    print(k)
             elif i == 6:
                 print("balance = " + str(account.get_balance()))
             elif i == 7:
