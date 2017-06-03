@@ -2,6 +2,7 @@ import counter
 import operation
 import datetime
 import storage
+import config
 
 
 class View:
@@ -31,12 +32,34 @@ class View:
         money = int(self.user_input(lambda: input("Enter money =  ")))
         return operation.Operation(self.get_datetime(), desc, money)
 
+    def get_data_from_file(self):
+        i = 0
+        while True:
+            i = self.user_input(lambda: input("1 - Load from *.pickle \n"
+                                              "2 - Load from *.yaml \n"
+                                              "3 - Load from *.json \n"))
+            if i == 1:
+                config.AppConfiguration().set_file_type("pickle")
+                return storage.Storage().load_data(open("database." + config.AppConfiguration().get_file_type(), 'rb'))
+            elif i == 2:
+                config.AppConfiguration().set_file_type("yaml")
+                return storage.Storage().load_data(open("database." + config.AppConfiguration().get_file_type(), 'rb'))
+            elif i == 3:
+                config.AppConfiguration().set_file_type("json")
+
+    def save_data_into_file(self, data):
+        if config.AppConfiguration().get_file_type() == "pickle":
+            storage.Storage().save_data(open("database." + config.AppConfiguration().get_file_type(), 'wb'), data)
+        elif config.AppConfiguration().get_file_type() == "yaml":
+            storage.Storage().save_data(open("database." + config.AppConfiguration().get_file_type(), 'w'), data)
+
+
     def run(self):
         """
         This function doing something depending on users' choice.
         """
         account = counter.Counter()
-        account.set_operations(storage.Storage().load_data(open("database.yaml", 'rb')))
+        account.set_operations(self.get_data_from_file())
         i = 0
         while i != 8:
             i = self.user_input(lambda: input("1 - Show operations history \n"
@@ -51,7 +74,8 @@ class View:
                 print(counter.Counter().list_to_string(account.get_operations(), "Empty operations history"))
             elif i == 2:
                 account.add_operation(self.get_new_operation())
-                storage.Storage().save_data(open("database.yaml", 'w'), account.get_operations())
+                self.save_data_into_file(account.get_operations())
+                #storage.Storage().save_data(open("database.yaml", 'w'), account.get_operations())
             elif i == 3:
                 print(account.get_operations_by_money(int(self.user_input(lambda: input("Enter money value = ")))))
             elif i == 4:
