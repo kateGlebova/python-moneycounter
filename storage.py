@@ -1,4 +1,4 @@
-# import storage_yaml
+import storage_yaml
 import storage_json
 import storage_pickle
 import config
@@ -20,5 +20,5 @@ class Storage:
             return storage_pickle.PickleFormat()
         elif file_type == "json":
             return storage_json.JsonFormat()
-        # elif file_type == "yaml":
-        #     return storage_yaml.YamlFormat()
+        elif file_type == "yaml":
+            return storage_yaml.YamlFormat()

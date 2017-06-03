@@ -7,7 +7,7 @@ class JsonFormat:
     @staticmethod
     def serialization(file, data):
         with file:
-            json.dump([i.__dict__() for i in data], file)
+            json.dump([i.get_json() for i in data], file)
         return data
 
     @staticmethod
