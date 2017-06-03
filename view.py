@@ -1,6 +1,7 @@
 import counter
 import operation
 import datetime
+import storage
 
 
 class View:
@@ -35,7 +36,7 @@ class View:
         This function doing something depending on users' choice.
         """
         account = counter.Counter()
-        account.load_from_file("database.txt")
+        account.set_operations(storage.Storage().load_data(open("database.yaml", 'rb')))
         i = 0
         while i != 8:
             i = self.user_input(lambda: input("1 - Show operations history \n"
@@ -50,7 +51,7 @@ class View:
                 print(counter.Counter().list_to_string(account.get_operations(), "Empty operations history"))
             elif i == 2:
                 account.add_operation(self.get_new_operation())
-                account.save_into_file("database.txt")
+                storage.Storage().save_data(open("database.yaml", 'w'), account.get_operations())
             elif i == 3:
                 print(account.get_operations_by_money(int(self.user_input(lambda: input("Enter money value = ")))))
             elif i == 4:
