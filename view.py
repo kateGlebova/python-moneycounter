@@ -46,11 +46,14 @@ class View:
                 return storage.Storage().load_data(open("database." + config.AppConfiguration().get_file_type(), 'rb'))
             elif i == 3:
                 config.AppConfiguration().set_file_type("json")
+                return storage.Storage().load_data(open("database." + config.AppConfiguration().get_file_type(), 'r'))
 
     def save_data_into_file(self, data):
         if config.AppConfiguration().get_file_type() == "pickle":
             storage.Storage().save_data(open("database." + config.AppConfiguration().get_file_type(), 'wb'), data)
         elif config.AppConfiguration().get_file_type() == "yaml":
+            storage.Storage().save_data(open("database." + config.AppConfiguration().get_file_type(), 'w'), data)
+        elif config.AppConfiguration().get_file_type() == "json":
             storage.Storage().save_data(open("database." + config.AppConfiguration().get_file_type(), 'w'), data)
 
     def run(self):

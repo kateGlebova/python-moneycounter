@@ -65,3 +65,6 @@ class Operation(object):
         '16 May 2017:\\tdonate\\t190.5'
         """
         return str(self.date.strftime('%d %b %Y:') + "\t" + self.description + "\t" + str(self.money))
+
+    def __dict__(self):
+        return {"description": self.description, "money": self.money, "year": self.date.year, "month": self.date.month, "day": self.date.day}
