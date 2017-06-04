@@ -73,8 +73,8 @@ class Operation(object):
         This function convert the date, description and money to json format.
         :return: Json format of date, money and description
         """
-        return { "year": self.date.year,
-                 "month": self.date.month,
-                 "day": self.date.day,
-                 "description": self.description,
-                 "money": self.money }
+        return {"year": self.date.year,
+                "month": self.date.month,
+                "day": self.date.day,
+                "description": self.description,
+                "money": self.money}
