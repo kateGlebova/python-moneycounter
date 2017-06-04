@@ -69,6 +69,12 @@ class Operation(object):
                    str(self.money))
 
     def get_json(self):
-        return {"description": self.description, "money": self.money,
-                "year": self.date.year, "month": self.date.month,
-                "day": self.date.day}
+        """
+        This function convert the date, description and money to json format.
+        :return: Json format of date, money and description
+        """
+        return { "year": self.date.year,
+                 "month": self.date.month,
+                 "day": self.date.day,
+                 "description": self.description,
+                 "money": self.money }

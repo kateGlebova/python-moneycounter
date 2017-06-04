@@ -35,8 +35,5 @@ class AppConfiguration:
         config = configparser.RawConfigParser()
         config.read(self.file_name)
         config.set(self.serial_section, self.serial_type, value)
-        try:
-            with open(self.file_name, 'w') as f:
-                config.write(f)
-        except FileNotFoundError:
-            print("FileNotFound")
+        with open(self.file_name, 'w') as f:
+            config.write(f)

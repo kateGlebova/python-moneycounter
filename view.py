@@ -85,7 +85,7 @@ class View:
         account = counter.Counter()
         account.set_operations(self.get_data_from_file())
         i = 0
-        while i != 8:
+        while i != 9:
             i = self.user_input(lambda: input("1 - Show operations history \n"
                                               "2 - Add new operation \n"
                                               "3 - Get operations by money \n"
@@ -93,7 +93,8 @@ class View:
                                               "5 - Get operation by date \n"
                                               "6 - Get balance \n"
                                               "7 - Clear operations history \n"
-                                              "8 - Exit \n"))
+                                              "8 - Change file \n"
+                                              "9 - Exit \n"))
             if i == 1:
                 for i in account:
                     print(i)
@@ -116,7 +117,9 @@ class View:
                 print("balance = " + str(account.get_balance()))
             elif i == 7:
                 account.delete_operations()
-            elif i != 8:
+            elif i == 8:
+                account.set_operations(self.get_data_from_file())
+            elif i != 9:
                 print("Wrong choice, try again")
 
     @staticmethod
