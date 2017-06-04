@@ -33,6 +33,10 @@ class View:
         return operation.Operation(self.get_datetime(), desc, money)
 
     def get_data_from_file(self):
+        """
+        This function loads data from file, which you choose.
+        :return: nothing.
+        """
         i = 0
         while True:
             i = self.user_input(lambda: input("1 - Load from *.pickle \n"
@@ -49,6 +53,11 @@ class View:
                 return storage.Storage().load_data(open("database." + config.AppConfiguration().get_file_type(), 'r'))
 
     def save_data_into_file(self, data):
+        """
+        This function save data into file, which format you choose.
+        :param data: data.
+        :return: nothing.
+        """
         if config.AppConfiguration().get_file_type() == "pickle":
             storage.Storage().save_data(open("database." + config.AppConfiguration().get_file_type(), 'wb'), data)
         elif config.AppConfiguration().get_file_type() == "yaml":
@@ -92,7 +101,7 @@ class View:
             elif i == 7:
                 account.delete_operations()
             elif i != 8:
-                print("Wrong choice, ty again")
+                print("Wrong choice, try again")
 
     @staticmethod
     def user_input(input_func=input):

@@ -6,6 +6,13 @@ import storage
 
 
 class StringTest(unittest.TestCase):
+    """
+    In this class we test file formats.
+    Class has three functions:
+    1. test_pickle_format.
+    2. test_json_format.
+    3. test_yaml_format.
+    """
 
     test_data = [{"data": "16 May 2017", "description": "donate1", "money": 100},
                  {"data": "16 May 2017", "description": "donate2", "money": 100},
@@ -14,6 +21,10 @@ class StringTest(unittest.TestCase):
                  {"data": "16 May 2017", "description": "donate5", "money": 100}]
 
     def test_pickle_format(self):
+        """
+        This function tests pickle file.
+        :return: nothing.
+        """
         import pickle
 
         # test load
@@ -25,6 +36,10 @@ class StringTest(unittest.TestCase):
         self.assertEqual(self.test_data, storage.Storage().save_data(io.BytesIO(), self.test_data))
 
     def test_json_format(self):
+        """
+        This function tests json file.
+        :return: nothing
+        """
         import json
 
         # test load
@@ -37,6 +52,10 @@ class StringTest(unittest.TestCase):
         self.assertEqual(self.test_data, storage.Storage().save_data(io.StringIO(), self.test_data))
 
     def test_yaml_format(self):
+        """
+        This function tests yaml file.
+        :return: nothing.
+        """
         import yaml
 
         # test load

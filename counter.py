@@ -46,7 +46,7 @@ class Counter:
         >>> account.add_operation(operation.Operation(datetime.datetime.today(), "donate", -100))
         >>> account.add_operation(operation.Operation(datetime.datetime.today(), "donate", 100))
         >>> account.get_operations_by_date(datetime.datetime(2016, 12, 12))
-        'No matches \\n'
+        []
         """
         return [k for k in self.operations_list if k.get_date().date() == date.date()]
 
@@ -65,8 +65,8 @@ class Counter:
         >>> account.add_operation(operation.Operation(datetime.datetime(2017, 5, 20), "donate1", 100))
         >>> account.add_operation(operation.Operation(datetime.datetime(2017, 5, 20), "donate2", -100))
         >>> account.add_operation(operation.Operation(datetime.datetime(2017, 5, 20), "donate1", 100))
-        >>> account.get_operations_by_description("donate1")
-        '20 May 2017:\\tdonate1\\t100\\n20 May 2017:\\tdonate1\\t100\\n'
+        >>> account.get_operations_by_description("donate3")
+        []
         """
         return [k for k in self.operations_list if k.get_description() == description]
 
@@ -84,7 +84,7 @@ class Counter:
         >>> account = counter.Counter()
         >>> account.add_operation(operation.Operation(datetime.datetime(2017, 5, 20), "donate1", 100))
         >>> account.get_operations_by_money(150)
-        'No matches \\n'
+        []
         """
         return [k for k in self.operations_list if k.get_money() == money]
 
@@ -93,10 +93,20 @@ class Counter:
         This function get operations
         :return: list of operations
         :rtype: operations list
+        :Example
+        >>> import counter
+        >>> account = counter.Counter()
+        >>> account.get_operations()
+        []
         """
         return self.operations_list
 
     def set_operations(self, data):
+        """
+        This function set operations.
+        :param data: data.
+        :return: nothing.
+        """
         self.operations_list = data
 
     def delete_operations(self):
@@ -109,7 +119,6 @@ class Counter:
         >>> account = counter.Counter()
         >>> account.add_operation(operation.Operation(datetime.datetime.today(), "donate", 100))
         >>> account.delete_operations()
-        'Empty list \\n'
         """
         self.operations_list.clear()
 
