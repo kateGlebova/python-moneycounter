@@ -44,26 +44,39 @@ class View:
                                               "3 - Load from *.json \n"))
             if i == 1:
                 config.AppConfiguration().set_file_type("pickle")
-                return storage.Storage().load_data(open("database." + config.AppConfiguration().get_file_type(), 'rb'))
+                return storage.Storage().load_data(
+                    open("database." +
+                         config.AppConfiguration().get_file_type(), 'rb'))
             elif i == 2:
                 config.AppConfiguration().set_file_type("yaml")
-                return storage.Storage().load_data(open("database." + config.AppConfiguration().get_file_type(), 'rb'))
+                return storage.Storage().load_data(
+                    open("database." +
+                         config.AppConfiguration().get_file_type(), 'rb'))
             elif i == 3:
                 config.AppConfiguration().set_file_type("json")
-                return storage.Storage().load_data(open("database." + config.AppConfiguration().get_file_type(), 'r'))
+                return storage.Storage().load_data(
+                    open("database." +
+                         config.AppConfiguration().get_file_type(), 'r'))
 
-    def save_data_into_file(self, data):
+    @staticmethod
+    def save_data_into_file(data):
         """
         This function save data into file, which format you choose.
         :param data: data.
         :return: nothing.
         """
         if config.AppConfiguration().get_file_type() == "pickle":
-            storage.Storage().save_data(open("database." + config.AppConfiguration().get_file_type(), 'wb'), data)
+            storage.Storage().save_data(
+                open("database." +
+                     config.AppConfiguration().get_file_type(), 'wb'), data)
         elif config.AppConfiguration().get_file_type() == "yaml":
-            storage.Storage().save_data(open("database." + config.AppConfiguration().get_file_type(), 'w'), data)
+            storage.Storage().save_data(
+                open("database." +
+                     config.AppConfiguration().get_file_type(), 'w'), data)
         elif config.AppConfiguration().get_file_type() == "json":
-            storage.Storage().save_data(open("database." + config.AppConfiguration().get_file_type(), 'w'), data)
+            storage.Storage().save_data(
+                open("database." +
+                     config.AppConfiguration().get_file_type(), 'w'), data)
 
     def run(self):
         """
@@ -88,10 +101,13 @@ class View:
                 account.add_operation(self.get_new_operation())
                 self.save_data_into_file(account.get_operations())
             elif i == 3:
-                for k in account.get_operations_by_money(int(self.user_input(lambda: input("Enter money value = ")))):
+                for k in account.get_operations_by_money(
+                        int(self.user_input(
+                            lambda: input("Enter money value = ")))):
                     print(k)
             elif i == 4:
-                for k in account.get_operations_by_description(input("Enter description value: ")):
+                for k in account.get_operations_by_description(
+                        input("Enter description value: ")):
                     print(k)
             elif i == 5:
                 for k in account.get_operations_by_date(self.get_datetime()):

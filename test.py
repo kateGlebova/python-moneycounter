@@ -29,11 +29,13 @@ class StringTest(unittest.TestCase):
 
         # test load
         config.AppConfiguration().set_file_type("pickle")
-        self.assertEqual(self.test_data, storage.Storage().load_data(io.BytesIO(pickle.dumps(self.test_data))))
+        self.assertEqual(self.test_data, storage.Storage()
+                         .load_data(io.BytesIO(pickle.dumps(self.test_data))))
 
         # test save
         config.AppConfiguration().set_file_type("pickle")
-        self.assertEqual(self.test_data, storage.Storage().save_data(io.BytesIO(), self.test_data))
+        self.assertEqual(self.test_data, storage.Storage()
+                         .save_data(io.BytesIO(), self.test_data))
 
     def test_json_format(self):
         """
@@ -49,7 +51,8 @@ class StringTest(unittest.TestCase):
 
         # test save
         config.AppConfiguration().set_file_type("json")
-        self.assertEqual(self.test_data, storage.Storage().save_data(io.StringIO(), self.test_data))
+        self.assertEqual(self.test_data, storage.Storage()
+                         .save_data(io.StringIO(), self.test_data))
 
     def test_yaml_format(self):
         """
@@ -61,8 +64,10 @@ class StringTest(unittest.TestCase):
         # test load
         file = io.StringIO(yaml.dump(self.test_data))
         config.AppConfiguration().set_file_type("yaml")
-        self.assertEqual(self.test_data, storage.Storage().load_data(file))
+        self.assertEqual(self.test_data, storage.Storage()
+                         .load_data(file))
 
         # test save
         config.AppConfiguration().set_file_type("yaml")
-        self.assertEqual(self.test_data, storage.Storage().save_data(io.StringIO(), self.test_data))
+        self.assertEqual(self.test_data, storage.Storage()
+                         .save_data(io.StringIO(), self.test_data))

@@ -31,4 +31,6 @@ class JsonFormat:
         :return: list of operations.
         """
         with file:
-            return [Operation(datetime.datetime(i["year"], i["month"], i["day"]), i["description"], i["money"]) for i in json.loads(file.read())]
+            return [Operation(datetime.datetime(i["year"], i["month"],
+                                                i["day"]), i["description"],
+                              i["money"]) for i in json.loads(file.read())]

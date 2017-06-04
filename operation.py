@@ -64,7 +64,11 @@ class Operation(object):
         >>> str(operation.Operation(datetime.datetime(2017, 5, 16), "donate", 190.5))
         '16 May 2017:\\tdonate\\t190.5'
         """
-        return str(self.date.strftime('%d %b %Y:') + "\t" + self.description + "\t" + str(self.money))
+        return str(self.date.strftime('%d %b %Y:') + "\t" +
+                   self.description + "\t" +
+                   str(self.money))
 
     def get_json(self):
-        return {"description": self.description, "money": self.money, "year": self.date.year, "month": self.date.month, "day": self.date.day}
+        return {"description": self.description, "money": self.money,
+                "year": self.date.year, "month": self.date.month,
+                "day": self.date.day}
