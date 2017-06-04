@@ -1,6 +1,5 @@
 import io
 import unittest
-import counter
 import config
 import storage
 
