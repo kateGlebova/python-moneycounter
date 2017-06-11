@@ -10,7 +10,10 @@ class Date(Base):
 
     id = Column(Integer, primary_key=True)
     date = Column(DateTime)
-    operations = relationship("Operation")
+    operations = relationship("Operation", back_populates="date")
+
+    def __str__(self):
+        return self.date.strftime('%d %b %Y')
 
 
 class Operation(Base):
@@ -20,3 +23,12 @@ class Operation(Base):
     description = Column(String)
     money = Column(Float(asdecimal=True))
     date_id = Column(Integer, ForeignKey('dates.id'))
+
+    date = relationship("Date", back_populates="operations")
+
+    @classmethod
+    def get_balance(cls, session):
+        return sum([operation.money for operation in session.query(cls).all()])
+
+    def __str__(self):
+        return str(self.date) + "\t" + self.description + "\t" + "%.2f" % self.money

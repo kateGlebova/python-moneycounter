@@ -1,14 +1,28 @@
+from sqlalchemy.orm import sessionmaker
+
 import counter
 import operation
 import datetime
 import storage
 import config
+from sqlalchemy import create_engine
+
+from models import Base, Operation, Date
 
 
 class View:
 
     def __init__(self):
-        pass
+        self.session = self._init_db()
+
+    def _init_db(self):
+        """
+        Create a db engine, create tables if they don't exist, create a db session.
+        :return: Session | a db session
+        """
+        engine = create_engine(self.get_database_url())
+        Base.metadata.create_all(engine)
+        return sessionmaker(bind=engine)()
 
     def get_datetime(self):
         """
@@ -22,105 +36,71 @@ class View:
         day = int(self.user_input(lambda: input("Day = ")))
         return datetime.datetime(year, month, day)
 
-    def get_new_operation(self):
+    @staticmethod
+    def get_money_function():
+        return input("Enter money value = ")
+
+    @staticmethod
+    def get_description_function():
+        return input("Enter operation description: ")
+
+    def get_new_operation_data(self):
         """
         This function return new operation by user input.
 
         :return: new operation object
         """
-        desc = input("Enter operation description: ")
-        money = int(self.user_input(lambda: input("Enter money =  ")))
-        return operation.Operation(self.get_datetime(), desc, money)
-
-    def get_data_from_file(self):
-        """
-        This function loads data from file, which you choose.
-        :return: nothing.
-        """
-        i = 0
-        while True:
-            i = self.user_input(lambda: input("1 - Load from *.pickle \n"
-                                              "2 - Load from *.yaml \n"
-                                              "3 - Load from *.json \n"))
-            if i == 1:
-                config.AppConfiguration().set_file_type("pickle")
-                return storage.Storage().load_data(
-                    open("database." +
-                         config.AppConfiguration().get_file_type(), 'rb'))
-            elif i == 2:
-                config.AppConfiguration().set_file_type("yaml")
-                return storage.Storage().load_data(
-                    open("database." +
-                         config.AppConfiguration().get_file_type(), 'rb'))
-            elif i == 3:
-                config.AppConfiguration().set_file_type("json")
-                return storage.Storage().load_data(
-                    open("database." +
-                         config.AppConfiguration().get_file_type(), 'r'))
-
-    @staticmethod
-    def save_data_into_file(data):
-        """
-        This function save data into file, which format you choose.
-        :param data: data.
-        :return: nothing.
-        """
-        if config.AppConfiguration().get_file_type() == "pickle":
-            storage.Storage().save_data(
-                open("database." +
-                     config.AppConfiguration().get_file_type(), 'wb'), data)
-        elif config.AppConfiguration().get_file_type() == "yaml":
-            storage.Storage().save_data(
-                open("database." +
-                     config.AppConfiguration().get_file_type(), 'w'), data)
-        elif config.AppConfiguration().get_file_type() == "json":
-            storage.Storage().save_data(
-                open("database." +
-                     config.AppConfiguration().get_file_type(), 'w'), data)
+        desc = self.get_description_function()
+        money = float(self.user_input(self.get_money_function))
+        date_input = self.get_datetime()
+        date = self.session.query(Date).filter_by(date=date_input).first() or Date(date=date_input)
+        return {'date': date,
+                'description': desc,
+                'money': money}
 
     def run(self):
         """
         This function doing something depending on users' choice.
         """
-        account = counter.Counter()
-        account.set_operations(self.get_data_from_file())
         i = 0
-        while i != 9:
-            i = self.user_input(lambda: input("1 - Show operations history \n"
-                                              "2 - Add new operation \n"
-                                              "3 - Get operations by money \n"
-                                              "4 - Get operation by description \n"
-                                              "5 - Get operation by date \n"
-                                              "6 - Get balance \n"
-                                              "7 - Clear operations history \n"
-                                              "8 - Change file \n"
-                                              "9 - Exit \n"))
+        while i != 8:
+            i = self.user_input(self.menu_function)
             if i == 1:
-                for i in account:
-                    print(i)
+                for operation in self.session.query(Operation).all():
+                    print(operation)
             elif i == 2:
-                account.add_operation(self.get_new_operation())
-                self.save_data_into_file(account.get_operations())
+                self.session.add(Operation(**self.get_new_operation_data()))
+                self.session.commit()
             elif i == 3:
-                for k in account.get_operations_by_money(
-                        int(self.user_input(
-                            lambda: input("Enter money value = ")))):
-                    print(k)
+                for operation in self.session.query(Operation).filter_by(
+                        money=float(self.user_input(self.get_money_function))).all():
+                    print(operation)
             elif i == 4:
-                for k in account.get_operations_by_description(
-                        input("Enter description value: ")):
-                    print(k)
+                for operation in self.session.query(Operation).filter_by(
+                        description=self.get_description_function()).all():
+                    print(operation)
             elif i == 5:
-                for k in account.get_operations_by_date(self.get_datetime()):
-                    print(k)
+                for operation in self.session.query(Operation).filter_by(date=self.get_datetime()).all():
+                    print(operation)
             elif i == 6:
-                print("balance = " + str(account.get_balance()))
+                print("balance = " + str(Operation.get_balance(self.session)))
             elif i == 7:
-                account.delete_operations()
-            elif i == 8:
-                account.set_operations(self.get_data_from_file())
-            elif i != 9:
+                for operation in self.session.query(Operation).all():
+                    self.session.delete(operation)
+                self.session.commit()
+            elif i != 8:
                 print("Wrong choice, try again")
+
+    @staticmethod
+    def menu_function():
+        return input("1 - Show operations history \n"
+                     "2 - Add new operation \n"
+                     "3 - Get operations by money \n"
+                     "4 - Get operation by description \n"
+                     "5 - Get operation by date \n"
+                     "6 - Get balance \n"
+                     "7 - Clear operations history \n"
+                     "8 - Exit \n")
 
     @staticmethod
     def user_input(input_func=input):
@@ -136,3 +116,6 @@ class View:
             return int(input_func())
         except ValueError:
             return -1
+
+    def get_database_url(self):
+        return 'postgresql://katya:ivan@localhost/account'
