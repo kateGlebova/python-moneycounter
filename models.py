@@ -6,10 +6,13 @@ Base = declarative_base()
 
 
 class Date(Base):
+    """
+    Dates table schema.
+    """
     __tablename__ = 'dates'
 
     id = Column(Integer, primary_key=True)
-    date = Column(DateTime)
+    date = Column(DateTime, nullable=False)
     operations = relationship("Operation", back_populates="date")
 
     def __str__(self):
@@ -17,12 +20,15 @@ class Date(Base):
 
 
 class Operation(Base):
+    """
+    Operations table schema.
+    """
     __tablename__ = 'operations'
 
     id = Column(Integer, primary_key=True)
-    description = Column(String)
-    money = Column(Float(asdecimal=True))
-    date_id = Column(Integer, ForeignKey('dates.id'))
+    description = Column(String, nullable=False)
+    money = Column(Float(asdecimal=True), nullable=False)
+    date_id = Column(Integer, ForeignKey('dates.id'), nullable=False)
 
     date = relationship("Date", back_populates="operations")
 

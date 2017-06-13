@@ -33,6 +33,10 @@ class Controller:
         return config
 
     def get_database_url(self):
+        """
+        Get database url from the config file.
+        :return:
+        """
         database = self.config['database']['type']
         try:
             return self.config[database]['db_url']
